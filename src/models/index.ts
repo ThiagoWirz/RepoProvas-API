@@ -4,4 +4,4 @@ export interface User {
   password: string
 }
 
-export type UserSignUp = Omit<User, "id">
+export type UserSignIn = Omit<User, "id">

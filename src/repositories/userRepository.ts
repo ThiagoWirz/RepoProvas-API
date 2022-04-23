@@ -11,7 +11,7 @@ export async function findByEmail(email:string) {
   return user
 }
 
-export async function create(data: models.UserSignUp) {
+export async function create(data: models.UserSignIn) {
   await client.user.create({
     data
   })
