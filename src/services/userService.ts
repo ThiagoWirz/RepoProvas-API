@@ -1,7 +1,7 @@
-import jwt from "jsonwebtoken"
 import * as models from "../models/index.js"
 import * as userRepositories from "../repositories/userRepository.js"
 import * as hashUtils from "../utils/hashUtils.js"
+import * as authUtils from "../utils/authUtils.js"
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -22,7 +22,7 @@ export async function signIn({email, password}: models.UserSignIn) {
     throw{ type: "unauthorized", message: "Email not registered"}
   }
   confirmPassword(password, user.password)
-  const token = createToken(user)
+  const token = authUtils.createToken(user)
  
   delete user.password
   return {...user, token}
@@ -39,9 +39,4 @@ export function confirmPassword(password: string, hashPassword: string){
  if(!isPasswordValid){
    throw{ type: "unauthorized", message: "wrong password" }
  }
-}
-
-export function createToken(user: models.User){
-  const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET)
-  return token
 }

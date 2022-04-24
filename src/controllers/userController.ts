@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as models from "../models/index.js";
 import * as userService from "../services/userService.js"
 import * as authService from "../services/authService.js"
-
+import jwt from "jsonwebtoken"
 
 export async function create(req: Request, res: Response) {
   const {email, password, confirmPassword} = req.body;

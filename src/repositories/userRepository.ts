@@ -16,3 +16,12 @@ export async function create(data: models.UserSignIn) {
     data
   })
 }
+
+export async function findById(id: number) {
+  const user =await client.user.findUnique({
+    where:{
+      id
+    }
+  })
+  return user
+}

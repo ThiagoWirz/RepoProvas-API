@@ -6,3 +6,13 @@ export async function createSession(data: models.CreateSession) {
    data
  })
 }
+
+export async function find(id: number) {
+  const session = await client.session.findUnique({
+    where:{
+      id
+    }
+  })
+
+  return session
+}
