@@ -8,9 +8,10 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
   password String
+  Session  Session[]
 
   @@map("users")
 }
@@ -70,4 +71,13 @@ model Test {
   teacherDisciplineId Int
 
   @@map("tests")
+}
+
+model Session {
+  id     Int    @id @default(autoincrement())
+  token  String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@map("sessions")
 }

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as models from "../models/index.js";
 import * as userService from "../services/userService.js"
+import * as authService from "../services/authService.js"
 
 
 export async function create(req: Request, res: Response) {
@@ -25,5 +26,7 @@ export async function signIn(req: Request, res: Response) {
   }  
   const userData = await userService.signIn(user)
 
+  await authService.createSession(userData.id, userData.token)
+  
   res.send(userData)
 }
