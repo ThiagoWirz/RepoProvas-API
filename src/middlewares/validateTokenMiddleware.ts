@@ -12,13 +12,13 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
     throw { type: "unauthorized", message: "invalid token"}
   }
 
-  authUtils.verifyToken(token)
-  const session = await authRepository.find(token)
+  const { userId } = authUtils.verifyToken(token)
+  const session = await authRepository.find(userId)
   if(!session){
     throw { type: "unauthorized", message: "session expired"}
   }
 
-  const user = await userRepositories.findById(session.userId)
+  const user = await userRepositories.findById(userId)
   if(!user){
     throw { type: "unauthorized", message: "session expired"}
   }

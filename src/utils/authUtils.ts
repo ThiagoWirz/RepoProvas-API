@@ -5,7 +5,10 @@ dotenv.config()
 
 
 export function verifyToken(token:string){
-   try{ jwt.verify(token, process.env.JWT_SECRET)
+   try{ 
+    const payLoad = jwt.verify(token, process.env.JWT_SECRET) as {userId: number}
+
+    return payLoad
    }
    catch{
    {

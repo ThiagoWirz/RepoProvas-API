@@ -7,10 +7,10 @@ export async function createSession(data: models.CreateSession) {
  })
 }
 
-export async function find(token: string) {
+export async function find(userId: number) {
   const session = await client.session.findFirst({
     where:{
-      token
+      userId
     }
   })
 
