@@ -17,10 +17,10 @@ export async function find(token: string) {
   return session
 }
 
-export async function deleteSession(id: number) {
+export async function deleteSession(token: string) {
   await client.session.delete({
     where:{
-      id
+      token
     }
   })
 }

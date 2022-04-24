@@ -23,7 +23,7 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
     throw { type: "unauthorized", message: "session expired"}
   }
 
-  res.locals.user = {...user, sessionId: session.id}
+  res.locals.user = {...user, token}
 
   next()
 }

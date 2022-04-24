@@ -31,9 +31,9 @@ export async function signIn(req: Request, res: Response) {
 }
 
 export async function logout(req: Request, res: Response) {
-  const { user } = res.locals;
+  const {token} = res.locals.user
 
-  await authService.deleteSession(user.sessionId)
+  await authService.deleteSession(token)
 
   res.sendStatus(200)
 }
