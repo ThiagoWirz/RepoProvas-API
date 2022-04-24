@@ -5,7 +5,13 @@ dotenv.config()
 
 
 export function verifyToken(token:string){
-   return jwt.verify(token, process.env.JWT_SECRET) as string
+   try{ jwt.verify(token, process.env.JWT_SECRET)
+   }
+   catch{
+   {
+     throw {type: "unauthorized", message: "invalid token"}
+   }
+  }
 }
 
 export function createToken(user: models.User){

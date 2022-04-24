@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import * as models from "../models/index.js";
 import * as userService from "../services/userService.js"
 import * as authService from "../services/authService.js"
-import jwt from "jsonwebtoken"
 
 export async function create(req: Request, res: Response) {
   const {email, password, confirmPassword} = req.body;
@@ -20,7 +19,7 @@ export async function create(req: Request, res: Response) {
 }
 
 export async function signIn(req: Request, res: Response) {
-  const user: models.UserSignIn = req.body;
+  const user: models.UserData = req.body;
   if(!user.email || !user.password){
     throw{ type: "bad-request", message: "Please, fill up all inputs"}
   }  
@@ -29,4 +28,12 @@ export async function signIn(req: Request, res: Response) {
   await authService.createSession(userData.id, userData.token)
   
   res.send(userData)
+}
+
+export async function logout(req: Request, res: Response) {
+  const { user } = res.locals;
+
+  await authService.deleteSession(user.sessionId)
+
+  res.sendStatus(200)
 }

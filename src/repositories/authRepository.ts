@@ -7,12 +7,20 @@ export async function createSession(data: models.CreateSession) {
  })
 }
 
-export async function find(id: number) {
-  const session = await client.session.findUnique({
+export async function find(token: string) {
+  const session = await client.session.findFirst({
     where:{
-      id
+      token
     }
   })
 
   return session
+}
+
+export async function deleteSession(id: number) {
+  await client.session.delete({
+    where:{
+      id
+    }
+  })
 }

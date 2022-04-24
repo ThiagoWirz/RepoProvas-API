@@ -16,7 +16,7 @@ export async function create(email:string , password:string) {
 
 }
 
-export async function signIn({email, password}: models.UserSignIn) {
+export async function signIn({email, password}: models.UserData) {
   const user = await userRepositories.findByEmail(email)
   if(!user){
     throw{ type: "unauthorized", message: "Email not registered"}

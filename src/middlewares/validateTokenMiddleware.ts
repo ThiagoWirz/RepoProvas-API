@@ -12,18 +12,18 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
     throw { type: "unauthorized", message: "invalid token"}
   }
 
-  const id = authUtils.verifyToken(token)
-  const session = await authRepository.find(parseInt(id))
+  authUtils.verifyToken(token)
+  const session = await authRepository.find(token)
   if(!session){
     throw { type: "unauthorized", message: "session expired"}
   }
 
-  const user = userRepositories.findById(session.userId)
+  const user = await userRepositories.findById(session.userId)
   if(!user){
     throw { type: "unauthorized", message: "session expired"}
   }
 
-  res.locals.user = user
+  res.locals.user = {...user, sessionId: session.id}
 
   next()
 }

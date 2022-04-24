@@ -4,7 +4,7 @@ export interface User {
   password: string
 }
 
-export type UserSignIn = Omit<User, "id">
+export type UserData = Omit<User, "id">
 
 export interface Session {
   id: number,
