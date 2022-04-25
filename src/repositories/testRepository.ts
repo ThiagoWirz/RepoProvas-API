@@ -112,3 +112,40 @@ export async function getTestsByDisciplines(disciplineId: number) {
   return tests
 }
 
+export async function getTeacher() {
+  const teachers = client.teacher.findMany({})
+
+  return teachers
+}
+
+export async function getTestsByCategories(teacherId: number) {
+  const tests = await client.category.findMany({
+    select:{
+      id:true,
+      name:true,
+      Test:{
+        where:{
+          teacherDiscipline:{
+            teacherId
+          },
+        },
+        select:{
+          id: true,
+          name:true,
+          teacherDiscipline:{
+            select:{
+              discipline:{
+                select:{
+                  name:true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  })
+
+  return tests
+}
+

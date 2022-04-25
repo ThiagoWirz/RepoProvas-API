@@ -30,13 +30,15 @@ export async function getByDiscipline(){
 
 //   return response
 // }
+
 const response = [];
 	
 
 	for (const term of terms) {
 		let tests = [];
 		for (const discipline of term.Discipline) {
-			tests.push({discipline: discipline.name, categories: await testRepository.getTestsByDisciplines(discipline.id)})
+			const categories = await testRepository.getTestsByDisciplines(discipline.id)
+			tests.push({discipline: discipline.name, categories })
 		}
 
 		const final = {
@@ -49,6 +51,25 @@ const response = [];
 	}
 
 	return response;
+}
+
+
+export async function getByTeacher(){
+	const teachers = await testRepository.getTeacher()
+	const response = []
+
+	for(let teacher of teachers){
+		const categories = await testRepository.getTestsByCategories(teacher.id)
+
+		const final = {
+			id: teacher.id,
+			name: teacher.name,
+			categories
+		}
+		response.push(final)
+	}
+
+	return response
 }
 
 
