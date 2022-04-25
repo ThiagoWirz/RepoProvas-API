@@ -5,7 +5,7 @@ import * as authUtils from "../utils/authUtils.js"
 
 
 export async function validateToken(req: Request, res: Response, next: NextFunction) {
-  const authorization = req.headers.authorization as string
+  const authorization = req.headers["authorization"] as string
   const token = authorization?.replace("Bearer ", "")
 
   if(!token){
